@@ -1,3 +1,12 @@
+# User-defined
+.DS_Store
+docs/others
+data
+output
+tools/autolabeler/FGR/kitti
+tools/autolabeler/ST/frustum
+tools/autolabeler/ST/images
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
