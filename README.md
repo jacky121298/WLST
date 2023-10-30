@@ -2,7 +2,7 @@
 
 Official pytorch implementation of [Tsou et. al, "WLST: Weak Labels Guided Self-training for Weakly-supervised Domain Adaptation on 3D Object Detection"](https://arxiv.org/abs/2310.03821).
 
-![](docs/framework.png)
+<p align="center"><img src="docs/framework.png" width="700"></p>
 
 ## Introduction
 

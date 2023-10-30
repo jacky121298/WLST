@@ -56,28 +56,6 @@ pip install nuscenes-devkit==1.1.9
 python -m pcdet.datasets.nuscenes.nuscenes_dataset --func create_nuscenes_infos --cfg_file tools/cfgs/dataset_configs/nuscenes_dataset.yaml --version v1.0-trainval
 ```
 
-<!-- * Insert following lines of code into `nuscenes/utils/data_classes.py`.
-
-```python
-class LidarPointCloud2(PointCloud):
-    @classmethod
-    def from_points(cls, points) -> 'LidarPointCloud2':
-        cls.points = points
-        return cls(points)
-
-    @staticmethod
-    def nbr_dims() -> int:
-        """
-        Returns the number of dimensions.
-        :return: Number of dimensions.
-        """
-        return 3
-
-    @classmethod
-    def from_file(cls, file_name: str) -> 'LidarPointCloud':
-        return None
-``` -->
-
 ### Waymo Open Dataset
 
 * Please download the official [Waymo Open Dataset](https://waymo.com/open/download/), including the training data `training_0000.tar~training_0031.tar` and the validation data `validation_0000.tar~validation_0007.tar`.
