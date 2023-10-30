@@ -34,7 +34,6 @@ class NuScenesDatasetWL(DatasetTemplate):
                 infos = pickle.load(f)
                 nuscenes_infos.extend(infos)
 
-        # nuscenes_infos = [nuscenes_infos[i] for i in range(50)]
         self.infos.extend(nuscenes_infos)
         self.logger.info('Total samples for NuScenes dataset: %d' % (len(nuscenes_infos)))
 

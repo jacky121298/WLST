@@ -4,7 +4,7 @@ from tqdm import tqdm
 from torch.nn.utils import clip_grad_norm_
 from pcdet.utils import self_training_utils_wl
 from pcdet.ops.iou3d_nms import iou3d_nms_utils
-from tools.train_wl_seg import train_seg_model_one_epoch
+from tools.train_wlst_seg import train_seg_model_one_epoch
 from tools.train_utils.train_utils_wl import train_model_one_epoch
 
 def class2angle(cfg, pred_cls, residual, to_label_format=True):

@@ -9,12 +9,12 @@ from typing import List, Tuple, Union
 from nuscenes.utils.data_classes import Box
 from shapely.geometry import MultiPoint, box
 from pyquaternion.quaternion import Quaternion
+from pcdet.utils import LidarPointCloud
 from .augmentor.data_augmentor import DataAugmentor
 from .processor.data_processor import DataProcessor
 from .augmentor.data_augmentor import DataAugmentorWL
 from nuscenes.utils.geometry_utils import view_points
 from ..ops.roiaware_pool3d import roiaware_pool3d_utils
-from nuscenes.utils.data_classes import LidarPointCloud2
 from .processor.point_feature_encoder import PointFeatureEncoder
 from ..utils import common_utils, box_utils, self_training_utils, self_training_utils_wl
 
@@ -561,7 +561,7 @@ class DatasetTemplate(torch_data.Dataset):
         camera_pose_rec = nusc.get('ego_pose', camera_record['ego_pose_token'])
 
         pts_wl, rgb_wl, box_wl, seg_wl, fru_wl, lab_wl, theta_wl, image_wl = [], [], [], [], [], [], [], []
-        pts_lidar = LidarPointCloud2.from_points(pts_lidar.T)
+        pts_lidar = LidarPointCloud.from_points(pts_lidar.T)
         pts_camera = copy.deepcopy(pts_lidar)
         pts_camera = self.lidar_to_camera_pc(pts_camera, lidar_cs_rec, lidar_pose_rec, camera_cs_rec, camera_pose_rec)
         pts_depth = pts_camera.points[2, :]
@@ -625,7 +625,7 @@ class DatasetTemplate(torch_data.Dataset):
             seg_wl.append(seg)
             lab_wl.append(input_dict['gt_names'][i])
 
-            pts = LidarPointCloud2.from_points(pts.T)
+            pts = LidarPointCloud.from_points(pts.T)
             if input_dict['dataset_cfg'].WEAK_LABEL.TRANSFER_TO_CENTER:
                 u = (min_x + max_x) / 2
                 v = (min_y + max_y) / 2
@@ -665,7 +665,7 @@ class DatasetTemplate(torch_data.Dataset):
                 x = ((u - cu) * depth_rect) / fu
                 y = ((v - cv) * depth_rect) / fv
                 pt = np.array([x, y, depth_rect]).reshape((3, -1))
-                pt = LidarPointCloud2.from_points(pt)
+                pt = LidarPointCloud.from_points(pt)
                 pt = self.camera_to_lidar_pc(pt, lidar_cs_rec, lidar_pose_rec, camera_cs_rec, camera_pose_rec)
 
                 if input_dict['dataset_cfg'].WEAK_LABEL.TRANSFER_TO_CENTER:
@@ -677,7 +677,7 @@ class DatasetTemplate(torch_data.Dataset):
                 fru.append(pt.points.squeeze())
 
             pt = np.array([0.0, 0.0, 0.0]).reshape((3, -1))
-            pt = LidarPointCloud2.from_points(pt)
+            pt = LidarPointCloud.from_points(pt)
             pt = self.camera_to_lidar_pc(pt, lidar_cs_rec, lidar_pose_rec, camera_cs_rec, camera_pose_rec)
             if input_dict['dataset_cfg'].get('SHIFT_COOR', None):
                 pt.points += np.array(input_dict['dataset_cfg'].SHIFT_COOR, dtype=np.float32).reshape((3, 1))

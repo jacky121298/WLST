@@ -10,10 +10,9 @@ from nuscenes.utils.data_classes import Box
 from shapely.geometry import MultiPoint, box
 from pyquaternion.quaternion import Quaternion
 from nuscenes.utils.geometry_utils import view_points
-from nuscenes.utils.data_classes import LidarPointCloud2
 from pcdet.models import load_data_to_gpu
 from pcdet.ops.iou3d_nms import iou3d_nms_utils
-from pcdet.utils import calibration_kitti, calibration_waymo
+from pcdet.utils import LidarPointCloud, calibration_kitti, calibration_waymo
 
 THRESH = None
 PSEUDO_LABELS_M2D3D = {}
@@ -325,7 +324,7 @@ def get_iou2d(box, bbox_wl, calib, pose, image_shape, cfg, lidar_cs_rec, lidar_p
     elif cfg.DATASET == 'nuscenes':
         if cfg.LATE_FUSION.get('SHIFT_COOR', None):
             corners -= np.array(cfg.LATE_FUSION.SHIFT_COOR, dtype=np.float32)
-        pts = LidarPointCloud2.from_points(corners.T)
+        pts = LidarPointCloud.from_points(corners.T)
         pts = lidar_to_camera_pc(pts, lidar_cs_rec, lidar_pose_rec, camera_cs_rec, camera_pose_rec) 
         cam_intrinsic = np.array(camera_cs_rec['camera_intrinsic'])       
         pts_img = np.copy(view_points(pts.points, cam_intrinsic, normalize=True))
