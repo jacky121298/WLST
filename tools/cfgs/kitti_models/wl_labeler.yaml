@@ -1,0 +1,65 @@
+CLASS_NAMES: ['Car']
+
+DATA_CONFIG:
+    _BASE_CONFIG_: cfgs/dataset_configs/da_kitti_dataset_wl.yaml
+    FOV_POINTS_ONLY: True
+    CLASS_NAMES: ['Car']
+    SHIFT_COOR: [0.0, 0.0, 1.6]
+
+    WEAK_LABEL:
+        NUM_POINT: 2048
+        FRUSTUM_DIS: 100
+        NUM_HEADING_BIN: 12
+        NUM_SIZE_CLUSTER: 3
+        NUM_OBJECT_POINT: 1024
+        TRANSFER_TO_CENTER: True
+        SEG_TO_CENTER: True
+        MEAN_SIZE_ARR: [[ 3.9, 1.6, 1.56], [ 4.7, 2.1,  1.7], [10.0, 2.6,  3.2]]
+
+        DATA_AUGMENTOR:
+            DISABLE_AUG_LIST: [ 'normalize_object_size', 'random_object_rotation' ]
+            AUG_CONFIG_LIST:
+                - NAME: random_object_scaling
+                  SCALE_UNIFORM_NOISE: [ 0.95, 1.05 ]
+
+                - NAME: normalize_object_size
+                  SIZE_RES: [ -0.91, -0.49, -0.26 ]
+                
+                - NAME: random_object_rotation
+                  ROT_PROB: 1.0
+                  ROT_UNIFORM_NOISE: [-0.78539816, 0.78539816]
+
+DATA_CONFIG_TAR:
+    _BASE_CONFIG_: cfgs/dataset_configs/da_kitti_dataset_wl.yaml
+    FOV_POINTS_ONLY: True
+    CLASS_NAMES: ['Car']
+    SHIFT_COOR: [0.0, 0.0, 1.6]
+
+    WEAK_LABEL:
+        NUM_POINT: 2048
+        FRUSTUM_DIS: 100
+        NUM_HEADING_BIN: 12
+        NUM_SIZE_CLUSTER: 3
+        NUM_OBJECT_POINT: 1024
+        TRANSFER_TO_CENTER: True
+        SEG_TO_CENTER: True
+        MEAN_SIZE_ARR: [[ 3.9, 1.6, 1.56], [ 4.7, 2.1,  1.7], [10.0, 2.6,  3.2]]
+
+        DATA_AUGMENTOR:
+            DISABLE_AUG_LIST: [ 'normalize_object_size', 'random_object_rotation' ]
+            AUG_CONFIG_LIST:
+                - NAME: random_object_scaling
+                  SCALE_UNIFORM_NOISE: [ 0.95, 1.05 ]
+
+                - NAME: normalize_object_size
+                  SIZE_RES: [ -0.91, -0.49, -0.26 ]
+                
+                - NAME: random_object_rotation
+                  ROT_PROB: 1.0
+                  ROT_UNIFORM_NOISE: [-0.78539816, 0.78539816]
+
+MODEL_WL:
+    CHANNEL: 6
+    USE_RGB: True
+    USE_IMG: True
+    TWO_STAGE: False

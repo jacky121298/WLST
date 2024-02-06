@@ -1,0 +1,16 @@
+six
+h5py
+tqdm
+numba
+numpy
+pybind11
+llvmlite
+SharedArray
+scikit-image
+tensorboardX
+torch>=1.1
+numpy==1.19.0
+pyyaml==5.3.1
+easydict==1.9
+scikit-learn==0.23.1
+opencv-python==4.3.0.36
